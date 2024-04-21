@@ -85,7 +85,7 @@ This project was setup to explore django-extensions and lear more about what it 
 
 * [Django 5.0.4](https://www.djangoproject.com/)
 * [Django Extensions 3.2.3](https://django-extensions.readthedocs.io/en/latest/)
-* [Graphviz 0.19.1](https://graphviz.org/)
+* [Graphviz 10.0.1](https://graphviz.org/)
 * See requirements.txt for a full list
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -274,4 +274,4 @@ Project Link: [https://github.com/drobb2020/django_extensions_example](https://g
 [license-shield]: https://img.shields.io/github/license/drobb2020/django_extensions_example.svg?style=for-the-badge
 [license-url]: https://github.com/drobb2020/django_extensions_example/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/drobb2020
+[linkedin-url]: https://www.linkedin.com/in/david-robb-42436a20/
