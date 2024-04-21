@@ -7,16 +7,19 @@
     "allowed_elements": [
       "img",
       "h1",
+      "h2",
       "h3",
+      "h4",
+      "hr",
       "br",
       "div",
       "p",
       "a",
+      "ol",
       "ul",
       "li",
       "details",
       "summary",
-      "ol",
       "strong"
     ]
   }
