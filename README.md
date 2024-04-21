@@ -28,7 +28,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/drobb2020/django-extensions-example">
+  <a href="https://github.com/drobb2020/django_extensions_example">
     <img src="./static/images/logo.png" alt="Logo" width="100" height="100">
   </a>
 
@@ -37,14 +37,14 @@
   <p align="center">
     This project is intended to explore django-extensions and learn more about what django extensions can do for me during development.
     <br />
-    <a href="https://github.com/drobb2020/django-extensions-example"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/drobb2020/django_extensions_example"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/drobb2020/django-extensions-example">View Demo</a>
+    <a href="https://github.com/drobb2020/django_extensions_example">View Demo</a>
     ·
-    <a href="https://github.com/drobb2020/django-extensions-example/issues">Report Bug</a>
+    <a href="https://github.com/drobb2020/django_extensions_example/issues">Report Bug</a>
     ·
-    <a href="https://github.com/drobb2020/django-extensions-example/issues">Request Feature</a>
+    <a href="https://github.com/drobb2020/django_extensions_example/issues">Request Feature</a>
   </p>
 </p>
 
@@ -108,7 +108,7 @@ You will require graphviz to be installed on your OS before you can use graphviz
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/drobb2020/django-extensions-example.git
+   git clone https://github.com/drobb2020/django_extensions_example.git
    ```
 
 2. Create a virtual environment within the project folder.
@@ -221,7 +221,7 @@ _For more examples, please refer to the [Documentation](https://django-extension
 * [ ] Add HTMX to project
 * [ ] Add a CustomUser app to the project and setup login, logout, and register pages.
 
-See the [open issues](https://github.com/drobb2020/django-example/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/drobb2020/django_extensions_example/issues) for a list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -250,7 +250,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 David Robb - drobb2011@gmail.com
 
-Project Link: [https://github.com/drobb2020/django-extensions-example](https://github.com/drobb2020/django-extensions-example)
+Project Link: [https://github.com/drobb2020/django_extensions_example](https://github.com/drobb2020/django_extensions_example)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -263,15 +263,15 @@ Project Link: [https://github.com/drobb2020/django-extensions-example](https://g
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/drobb2020/django-extensions-example.svg?style=for-the-badge
-[contributors-url]: https://github.com/drobb2020/django-extensions-example/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/drobb2020/django-extensions-example.svg?style=for-the-badge
-[forks-url]: https://github.com/drobb2020/django-extensions-example/network/members
-[stars-shield]: https://img.shields.io/github/stars/drobb2020/django-extensions-example.svg?style=for-the-badge
-[stars-url]: https://github.com/drobb2020/django-extensions-example/stargazers
-[issues-shield]: https://img.shields.io/github/issues/drobb2020/django-extensions-example.svg?style=for-the-badge
-[issues-url]: https://github.com/drobb2020/django-extensions-example/issues
-[license-shield]: https://img.shields.io/github/license/drobb2020/django-extensions-example.svg?style=for-the-badge
-[license-url]: https://github.com/drobb2020/django-extensions-example/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/drobb2020/django_extensions_example.svg?style=for-the-badge
+[contributors-url]: https://github.com/drobb2020/django_extensions_example/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/drobb2020/django_extensions_example.svg?style=for-the-badge
+[forks-url]: https://github.com/drobb2020/django_extensions_example/network/members
+[stars-shield]: https://img.shields.io/github/stars/drobb2020/django_extensions_example.svg?style=for-the-badge
+[stars-url]: https://github.com/drobb2020/django_extensions_example/stargazers
+[issues-shield]: https://img.shields.io/github/issues/drobb2020/django_extensions_example.svg?style=for-the-badge
+[issues-url]: https://github.com/drobb2020/django_extensions_example/issues
+[license-shield]: https://img.shields.io/github/license/drobb2020/django_extensions_example.svg?style=for-the-badge
+[license-url]: https://github.com/drobb2020/django_extensions_example/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/drobb2020
