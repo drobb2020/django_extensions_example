@@ -77,7 +77,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project was setup to explore django-extensions and lear more about what it can do for me during development.
+This project was setup to explore django-extensions and learn more about how django-extensions can help me during development.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

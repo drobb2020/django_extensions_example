@@ -42,14 +42,18 @@
               >Account</a
             >
             <div class="dropdown-menu me-4">
-                {% if user.authenticated %}
+                {% if user.is_authenticated %}
                     <a class="dropdown-item" href="#">Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <form action="{% url 'logout' %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="dropdown-item">Log out</button>
+                    </form>
+                    <!-- <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a> -->
                 {% else %}
-                    <a class="dropdown-item" href="#">Register</a>
+                    <a class="dropdown-item" href="{% url 'signup' %}">Register</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Login</a>
+                    <a class="dropdown-item" href="{% url 'login' %}">Log In</a>
                 {% endif %}
             </div>
           </li>
