@@ -23,10 +23,8 @@ from django.urls import include, path
 urlpatterns = [
     # Django Admin path
     path("admin/", admin.site.urls),
-    # Django auth url paths
-    path("accounts/", include("django.contrib.auth.urls")),
-    # Accounts url paths
-    path("accounts/", include("accounts.urls")),
+    # Django allauth url paths
+    path("accounts/", include("allauth.urls")),
     # Core url paths
     path("", include("core.urls")),
 ]

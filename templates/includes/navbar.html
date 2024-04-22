@@ -31,32 +31,18 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-bs-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Account</a
-            >
-            <div class="dropdown-menu me-4">
-                {% if user.is_authenticated %}
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <div class="dropdown-divider"></div>
-                    <form action="{% url 'logout' %}" method="post">
-                      {% csrf_token %}
-                      <button type="submit" class="dropdown-item">Log out</button>
-                    </form>
-                    <!-- <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a> -->
-                {% else %}
-                    <a class="dropdown-item" href="{% url 'signup' %}">Register</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'login' %}">Log In</a>
-                {% endif %}
-            </div>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
           </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>

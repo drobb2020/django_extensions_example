@@ -6,11 +6,67 @@
 #
 asgiref==3.8.1
     # via django
+certifi==2024.2.2
+    # via requests
+cffi==1.16.0
+    # via cryptography
+charset-normalizer==3.3.2
+    # via requests
+crispy-bootstrap5==2024.2
+    # via -r requirements.in
+cryptography==42.0.5
+    # via pyjwt
+defusedxml==0.7.1
+    # via python3-openid
+dj-database-url==2.1.0
+    # via environs
+dj-email-url==1.0.6
+    # via environs
 django==5.0.4
     # via
     #   -r requirements.in
+    #   crispy-bootstrap5
+    #   dj-database-url
+    #   django-allauth
+    #   django-crispy-forms
     #   django-extensions
+django-allauth==0.61.1
+    # via -r requirements.in
+django-cache-url==3.4.5
+    # via environs
+django-crispy-forms==2.1
+    # via
+    #   -r requirements.in
+    #   crispy-bootstrap5
 django-extensions==3.2.3
     # via -r requirements.in
+environs[django]==11.0.0
+    # via -r requirements.in
+idna==3.7
+    # via requests
+marshmallow==3.21.1
+    # via environs
+oauthlib==3.2.2
+    # via requests-oauthlib
+packaging==24.0
+    # via marshmallow
+pycparser==2.22
+    # via cffi
+pyjwt[crypto]==2.8.0
+    # via django-allauth
+python-dotenv==1.0.1
+    # via environs
+python3-openid==3.2.0
+    # via django-allauth
+requests==2.31.0
+    # via
+    #   django-allauth
+    #   requests-oauthlib
+requests-oauthlib==2.0.0
+    # via django-allauth
 sqlparse==0.5.0
     # via django
+typing-extensions==4.11.0
+    # via dj-database-url
+urllib3==2.2.1
+    # via requests
