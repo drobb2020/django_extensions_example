@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}| {{ post.title }}{% endblock title %}
+
+{% block content %}
+
+<div class="post-detail">
+  <h2>{{ post.title }}</h2>
+  <p>Author: {{ post.author }}</p>
+  <div>
+    <a href="{% url 'post_update' post.pk %}" class="btn btn-primary">Edit this Post</a>
+    <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete this post</a>
+  </div>
+  <img src="{{ post.post_img.url }}" alt="{{ post.title }}" class="img-fluid img-thumbnail">
+  <p>{{ post.body|linebreaks }}</p>
+</div>
+
+{% endblock content %}

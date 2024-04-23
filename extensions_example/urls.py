@@ -27,6 +27,8 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Core url paths
     path("", include("core.urls")),
+    # Posts url paths
+    path("posts/", include("posts.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

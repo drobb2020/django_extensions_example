@@ -34,6 +34,8 @@ django-allauth==0.61.1
     # via -r requirements.in
 django-cache-url==3.4.5
     # via environs
+django-cleanup==8.1.0
+    # via -r requirements.in
 django-crispy-forms==2.1
     # via
     #   -r requirements.in
@@ -50,6 +52,8 @@ oauthlib==3.2.2
     # via requests-oauthlib
 packaging==24.0
     # via marshmallow
+pillow==10.3.0
+    # via -r requirements.in
 pycparser==2.22
     # via cffi
 pyjwt[crypto]==2.8.0

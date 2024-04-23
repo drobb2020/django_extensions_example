@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}| Posts{% endblock title %}
+
+{% block content %}
+<div class="d-flex justify-content-center my-3">
+  <a href="{% url 'post_create' %}" class="btn btn-success btn-lg" style="width: 25rem;">Create a Post</a>
+</div>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for post in post_list %}
+    <div class="col">
+      <a href="{{ post.get_absolute_url }}" class="text-decoration-none">
+          <div class="card">
+            <img src="{{ post.post_img.url }}" class="card-img-top" alt="{{ post.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.snippet }}</p>
+            </div>
+          </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock content %}
