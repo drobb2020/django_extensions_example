@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from accounts.views import ProfilePageView, ProfileUpdateView
+
 urlpatterns = [
     # Django Admin path
     path("admin/", admin.site.urls),
@@ -29,6 +31,8 @@ urlpatterns = [
     path("", include("core.urls")),
     # Posts url paths
     path("posts/", include("posts.urls")),
+    path("profile/", ProfilePageView.as_view(), name="profile"),
+    path("profile_update/<int:pk>/", ProfileUpdateView.as_view(), name="profile-update"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

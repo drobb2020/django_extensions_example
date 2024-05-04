@@ -8,15 +8,15 @@
 <div class="d-flex justify-content-center my-3">
   <a href="{% url 'post_create' %}" class="btn btn-success btn-lg" style="width: 25rem;">Create a Post</a>
 </div>
-<div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
     {% for post in post_list %}
     <div class="col">
       <a href="{{ post.get_absolute_url }}" class="text-decoration-none">
-          <div class="card">
+          <div class="card rounded shadow-lg">
             <img src="{{ post.post_img.url }}" class="card-img-top" alt="{{ post.title }}">
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text">{{ post.snippet }}</p>
+              <p class="card-text">{{ post.snippet|truncatechars:50 }}</p>
             </div>
           </div>
       </a>

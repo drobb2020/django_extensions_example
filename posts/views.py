@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import PostCreateForm, PostUpdateForm
@@ -34,3 +35,15 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     success_url = reverse_lazy("post_list")
+
+
+class SearchResultsListView(ListView):
+    model = Post
+    context_object_name = "post_list"
+    template_name = "posts/search_results.html"
+
+    def queryset(self):
+        query = self.request.GET.get("q")
+        return Post.objects.filter(
+            Q(title__icontains=query) | Q(body__icontains=query)
+        )

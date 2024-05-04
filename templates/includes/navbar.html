@@ -33,6 +33,9 @@
       <ul class="navbar-nav ms-auto">
         {% if user.is_authenticated %}
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
           </li>
         {% else %}
@@ -44,6 +47,10 @@
         </li>
         {% endif %}
       </ul>
+      <form action="{% url 'search_results' %}" method="get" class="d-flex">
+        <input type="search" name="q" placeholder="Search" aria-label="search" class="form-control me-2">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
   </div>
 </nav>
