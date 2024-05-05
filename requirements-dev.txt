@@ -4,10 +4,16 @@
 #
 #    pip-compile requirements-dev.in
 #
+asgiref==3.8.1
+    # via django
 black==24.4.0
     # via -r requirements-dev.in
 click==8.1.7
     # via black
+django==5.0.4
+    # via django-debug-toolbar
+django-debug-toolbar==4.3.0
+    # via -r requirements-dev.in
 mypy-extensions==1.0.0
     # via black
 packaging==24.0
@@ -18,3 +24,7 @@ platformdirs==4.2.0
     # via black
 ruff==0.4.1
     # via -r requirements-dev.in
+sqlparse==0.5.0
+    # via
+    #   django
+    #   django-debug-toolbar

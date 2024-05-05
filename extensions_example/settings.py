@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "django_cleanup.apps.CleanupConfig",
+    "debug_toolbar",
     # Applications
     "accounts.apps.AccountsConfig",
     "core.apps.CoreConfig",
@@ -60,6 +61,9 @@ INSTALLED_APPS = [
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -70,6 +74,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "extensions_example.urls"

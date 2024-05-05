@@ -1,3 +1,5 @@
+<div id="top"></div>
+
 # Setting up a Fresh Django Project
 
 ## Start
@@ -66,7 +68,9 @@
 
 This list of files can grow or shrink depending on the projects need. please see [Supporting Files](SUPPORTING_FILES.md) for details on each of these files.
 
-## settings.py
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Configuration
 
 ### INSTALLED_APPS
 
@@ -146,6 +150,8 @@ To make this all function you need to add the following lines to the project's u
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ## Creating Supporting folders
 
 - [ ] Create the following three folders in the root of the project, note the sub folders under static, and templates:
@@ -157,6 +163,8 @@ To make this all function you need to add the following lines to the project's u
     - [ ] js  # JavaScript support files
   - [ ] templates
     - [ ] includes
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## First App - Accounts (Custom User Model)
 
@@ -283,6 +291,8 @@ _home Page_
 _Users Page_
 [![Django Admin Screen Shot 2][product-screenshot2]](https://example.com)
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ## Testing the accounts model
 
 Untested code is just that - untested. You won't know if it behaves the way you expect or if it can be used to do something else. Here is a quick simple test for the CustomUser model we created.
@@ -316,9 +326,13 @@ Untested code is just that - untested. You won't know if it behaves the way you 
             self.assertTrue(user.is_superuser)
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ## GIT
 
 Here would be a good point to initialize a git repository and make an initial commit of the work done to date.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Creating a Second App
 
@@ -339,6 +353,8 @@ Here would be a good point to initialize a git repository and make an initial co
         ...
     ]
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Creating a Base Template & home page template
 
@@ -364,11 +380,15 @@ Here would be a good point to initialize a git repository and make an initial co
         
         {% endblock content %}
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 </html>
 ```
 
-As you can see the example includes bootstrap 5 provided by [Bootswatch](https://Bootswatch.com).
+As you can see the example includes bootstrap 5 provided by [Bootswatch](https://Bootswatch.com), and scripts provided by bootstrap. I use the naming convention base.css and base.js for additional CSS directives and JavaScript modules. These files can be named whatever you prefer.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Adding django-crispy-forms
 
@@ -415,6 +435,8 @@ You also need to add the following two lines to settings.py below INSTALLED_APPS
 ```
 
 Your forms should now be styled more appropriately to match your bootstrap styling.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Setup for Tailwindcss & HTMX using Node and npm
 
@@ -508,9 +530,11 @@ htmx gives you access to AJAX, CSS Transitions, WebSockets and Server Sent Event
         <script src="{% static 'js/htmx.min.js' %}"></script>
     ```
 
-TODO: Add alpine.js in the same way.
+TODO: Add alpine.js to the project.
 
 TODO: Add steps to actually minify the css output file.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Setup Django-Allauth
 
@@ -600,6 +624,54 @@ These settings will enable allauth to enhance the existing authentication system
 
     {% endblock content %}
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Setup Django-debug-toolbar
+
+The django-debug-toolbar is a module that can help you analyze the performance of your queries when the page loads. Knowing how long it takes a task or a post to load will help you design an application that users will be happy to use because it is responsive when they click on a link.
+
+The package can be added to either requirements.in, or requirements-dev.in. It's not important since the configuration of the debug_toolbar will only allow it to be seen when running against the localhost address (127.0.0.1).
+
+In requirements.in add the following line to the file:
+
+```sh
+    django-debug-toolbar==<latest_version>
+```
+
+The run the command:
+
+```sh
+    pip-compile requirements.in && pip install -r requirements.txt
+```
+
+* [ ] In settings.py ensure that under INSTALLED_APPS that 'django.contrib.staticfiles' is listed, and that STATIC_URL is correctly configured. Under TEMPLATES make sure the BACKEND includes "django.template.backends.django.DjangoTemplates", and that APP_DIRS is set to True.
+
+* [ ] You can now add "debug_toolbar", to the list of INSTALLED_APPS.
+
+* [ ] In the projects urls.py file add the path for the debug urls:
+
+```sh
+    path("__debug__/", include("debug_toolbar.urls")),
+```
+
+* [ ] Under MIDDLEWARE, add the following line:
+
+```sh
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+```
+
+NOTE: The order of MIDDLEWARE is important. You should include the Debug Toolbar middleware as early as possible in the list. However, it must come after any other middleware that encodes the response’s content, such as GZipMiddleware.
+
+* [ ] Now add the setting INTERNAL_IPS, this will limit when the toolbar can be seen.
+
+```sh
+    INTERNAL_IPS = [
+        "127.0.0.1",
+    ]
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 [product-screenshot]: static/images/djadmin.png
 [product-screenshot2]: static/images/djadmin2.png

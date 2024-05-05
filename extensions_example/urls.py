@@ -33,6 +33,7 @@ urlpatterns = [
     path("posts/", include("posts.urls")),
     path("profile/", ProfilePageView.as_view(), name="profile"),
     path("profile_update/<int:pk>/", ProfileUpdateView.as_view(), name="profile-update"),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -18,6 +18,7 @@ class PostDetailView(DetailView):
     model = Post
     context_object_name = "post"
     template_name = "posts/post_detail.html"
+    queryset = Post.objects.all().prefetch_related('reviews__post',)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

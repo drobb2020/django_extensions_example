@@ -172,11 +172,19 @@ _For more examples, please refer to the [Documentation](https://django-extension
 * You can also exclude models by adding the --dont-load app1 to the command line.
 * Has a built-in collision resolver.
 
+```sh
+  python manage.py shell_plus
+```
+
 ### dumpscript
 
 * Generates a standalone python script that can be used to repopulate the database using objects.
 * Save crucial data when you modify your models.
 * Edit the script to create 1000's of entries using for loops, and generated names.
+
+```sh
+  python manage.py dumpscript posts > django-extensions-dump.txt
+```
 
 ### export_emails
 
@@ -189,11 +197,19 @@ _For more examples, please refer to the [Documentation](https://django-extension
   * vcard
 * You can use the generated list for a mailer to all your users.
 
+```sh
+  python manage.py export_emails --format emails > django-extensions-email.txt
+```
+
 ### generate_password
 
 * Generates a new password that you can then use for a user password.
 * Uses the default django password generator.
 * You are able to specify the length of the password by adding the --length=XX switch.
+
+```sh
+  python manage.py generate_password --length 10 > django-extensions-gen-password.txt
+```
 
 ### Graph models
 
@@ -202,6 +218,10 @@ _For more examples, please refer to the [Documentation](https://django-extension
 * Renders a graphical representation of your entire project or of a specific application.
 * You need Graphviz installed on the OS, as well as pygraphviz for this to work.
 * Use the GRAPH_MODELS option in settings.py to specify default options.
+
+```sh
+  python manage.py graph_models posts accounts | dot -T png -o dee_posts_accounts.png
+```
 
 ### reset_db
 
@@ -219,6 +239,10 @@ _For more examples, please refer to the [Documentation](https://django-extension
 
 * Creates a new secret key that you can put in your settings.py module, or more appropriately place it in a dot env file.
 
+```sh
+  python manage.py generate_secret_key > django-extensions-secret-key.txt
+```
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
@@ -226,9 +250,9 @@ _For more examples, please refer to the [Documentation](https://django-extension
 
 * [X] Document the django-extensions I played with
 * [X] Add full CRUD functionality to demonstration
-* [ ] Add HTMX to project
 * [X] Add a CustomUser app to the project and setup login, logout, and register pages.
 * [X] Update the code to the latest available
+* [ ] Add HTMX to project
 
 See the [open issues](https://github.com/drobb2020/django_extensions_example/issues) for a list of proposed features (and known issues).
 

@@ -35,4 +35,4 @@ class Review(models.Model):
     date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.review} - {self.rating}"
+        return self.review

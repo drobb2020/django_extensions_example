@@ -1,0 +1,292 @@
+#!/usr/bin/env python
+
+
+# This file has been automatically generated.
+# Instead of changing it, create a file called import_helper.py
+# and put there a class called ImportHelper(object) in it.
+#
+# This class will be specially casted so that instead of extending object,
+# it will actually extend the class BasicImportHelper()
+#
+# That means you just have to overload the methods you want to
+# change, leaving the other ones intact.
+#
+# Something that you might want to do is use transactions, for example.
+#
+# Also, don't forget to add the necessary Django imports.
+#
+# This file was generated with the following command:
+# manage.py dumpscript posts
+#
+# to restore it, run
+# manage.py runscript module_name.this_script_name
+#
+# example: if manage.py is at ./manage.py
+# and the script is at ./some_folder/some_script.py
+# you must make sure ./some_folder/__init__.py exists
+# and run  ./manage.py runscript some_folder.some_script
+import os, sys
+from django.db import transaction
+
+class BasicImportHelper:
+
+    def pre_import(self):
+        pass
+
+    @transaction.atomic
+    def run_import(self, import_data):
+        import_data()
+
+    def post_import(self):
+        pass
+
+    def locate_similar(self, current_object, search_data):
+        # You will probably want to call this method from save_or_locate()
+        # Example:
+        #   new_obj = self.locate_similar(the_obj, {"national_id": the_obj.national_id } )
+
+        the_obj = current_object.__class__.objects.get(**search_data)
+        return the_obj
+
+    def locate_object(self, original_class, original_pk_name, the_class, pk_name, pk_value, obj_content):
+        # You may change this function to do specific lookup for specific objects
+        #
+        # original_class class of the django orm's object that needs to be located
+        # original_pk_name the primary key of original_class
+        # the_class      parent class of original_class which contains obj_content
+        # pk_name        the primary key of original_class
+        # pk_value       value of the primary_key
+        # obj_content    content of the object which was not exported.
+        #
+        # You should use obj_content to locate the object on the target db
+        #
+        # An example where original_class and the_class are different is
+        # when original_class is Farmer and the_class is Person. The table
+        # may refer to a Farmer but you will actually need to locate Person
+        # in order to instantiate that Farmer
+        #
+        # Example:
+        #   if the_class == SurveyResultFormat or the_class == SurveyType or the_class == SurveyState:
+        #       pk_name="name"
+        #       pk_value=obj_content[pk_name]
+        #   if the_class == StaffGroup:
+        #       pk_value=8
+
+        search_data = { pk_name: pk_value }
+        the_obj = the_class.objects.get(**search_data)
+        #print(the_obj)
+        return the_obj
+
+
+    def save_or_locate(self, the_obj):
+        # Change this if you want to locate the object in the database
+        try:
+            the_obj.save()
+        except:
+            print("---------------")
+            print("Error saving the following object:")
+            print(the_obj.__class__)
+            print(" ")
+            print(the_obj.__dict__)
+            print(" ")
+            print(the_obj)
+            print(" ")
+            print("---------------")
+
+            raise
+        return the_obj
+
+
+importer = None
+try:
+    import import_helper
+    # We need this so ImportHelper can extend BasicImportHelper, although import_helper.py
+    # has no knowledge of this class
+    importer = type("DynamicImportHelper", (import_helper.ImportHelper, BasicImportHelper ) , {} )()
+except ImportError as e:
+    # From Python 3.3 we can check e.name - string match is for backward compatibility.
+    if 'import_helper' in str(e):
+        importer = BasicImportHelper()
+    else:
+        raise
+
+import datetime
+from decimal import Decimal
+from django.contrib.contenttypes.models import ContentType
+
+try:
+    import dateutil.parser
+    from dateutil.tz import tzoffset
+except ImportError:
+    print("Please install python-dateutil")
+    sys.exit(os.EX_USAGE)
+
+def run():
+    importer.pre_import()
+    importer.run_import(import_data)
+    importer.post_import()
+
+def import_data():
+    # Initial Imports
+    from accounts.models import CustomUser
+
+    # Processing model: posts.models.Post
+
+    from posts.models import Post
+
+    posts_post_1 = Post()
+    posts_post_1.id = UUID('fe688550-48bb-4e4d-8e6b-7d82caff8ef5')
+    posts_post_1.title = 'Django Extensions - Shell Plus Readme'
+    posts_post_1.date = dateutil.parser.parse("2024-05-04T14:00:37.072493+00:00")
+    posts_post_1.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_1.snippet = 'Shell_plus is an enhancement over django shell command as it loads all the models that are registered in the project.'
+    posts_post_1.body = 'A Django shell with auto-loading of the configured apps database models and subclasses of user-defined classes. You can also exclude models by adding the --dont-load app1 to the command line. Shell_plus also has a built-in collision resolver.\r\n\r\nusage: manage.py shell_plus [-h]\r\n                            [--bpython | --idle | --ipython | --lab | --kernel | --notebook | --plain | --ptipython | --ptpython]\r\n                            [--connection-file CONNECTION_FILE] [--no-startup] [--use-pythonrc] [--print-sql]\r\n                            [--truncate-sql TRUNCATE_SQL] [--print-sql-location] [--dont-load DONT_LOAD] [--quiet-load] [--vi]\r\n                            [--no-browser] [-c COMMAND] [--version] [-v {0,1,2,3}] [--settings SETTINGS] [--pythonpath PYTHONPATH]\r\n                            [--traceback] [--no-color] [--force-color] [--skip-checks]\r\n\r\nLike the \'shell\' command but autoloads the models of all installed Django apps.\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --bpython             Tells Django to use BPython.\r\n  --idle                Tells Django to use Idle.\r\n  --ipython             Tells Django to use IPython.\r\n  --lab                 Tells Django to use JupyterLab Notebook.\r\n  --kernel              Tells Django to use IPython Kernel.\r\n  --notebook            Tells Django to use IPython Notebook.\r\n  --plain               Tells Django to use plain Python.\r\n  --ptipython           Tells Django to use PT-IPython.\r\n  --ptpython            Tells Django to use PTPython.\r\n  --connection-file CONNECTION_FILE\r\n                        Specifies the connection file to use if using the --kernel option\r\n  --no-startup          When using plain Python, ignore the PYTHONSTARTUP environment variable and ~/.pythonrc.py script.\r\n  --use-pythonrc        When using plain Python, load the PYTHONSTARTUP environment variable and ~/.pythonrc.py script.\r\n  --print-sql           Print SQL queries as they\'re executed\r\n  --truncate-sql TRUNCATE_SQL\r\n                        Truncate SQL queries to a number of characters.\r\n  --print-sql-location  Show location in code where SQL query generated from\r\n  --dont-load DONT_LOAD\r\n                        Ignore autoloading of some apps/models. Can be used several times.\r\n  --quiet-load          Do not display loaded models messages\r\n  --vi                  Load Vi key bindings (for --ptpython and --ptipython)\r\n  --no-browser          Don\'t open the notebook in a browser after startup.\r\n  -c COMMAND, --command COMMAND\r\n                        Instead of opening an interactive shell, run a command as Django and exit.\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t provided, the\r\n                        DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.\r\n  --skip-checks         Skip system checks.'
+    posts_post_1.post_img = 'post/djnago_extensions.png'
+    posts_post_1.updated = dateutil.parser.parse("2024-05-04T23:13:08.090143+00:00")
+    posts_post_1 = importer.save_or_locate(posts_post_1)
+
+    posts_post_2 = Post()
+    posts_post_2.id = UUID('f4df0842-e19a-413b-aebd-5e46f16870cc')
+    posts_post_2.title = 'Django Extensions - Dumpscript command'
+    posts_post_2.date = dateutil.parser.parse("2024-05-04T14:31:22.985780+00:00")
+    posts_post_2.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_2.snippet = 'Dump the contents of you database to preserve the data prior to altering the database.'
+    posts_post_2.body = 'Generates a standalone python script that can be used to repopulate the database using objects. Save crucial data before or when you modify your models. You can edit the script to create 1000\'s of entries using for loops, and generated names.\r\n\r\nusage: manage.py dumpscript [-h] [--autofield] [--version] [-v {0,1,2,3}] [--settings SETTINGS]\r\n                            [--pythonpath PYTHONPATH] [--traceback] [--no-color] [--force-color] [--skip-checks]\r\n                            appname [appname ...]\r\n\r\nDumps the data as a customised python script.\r\n\r\npositional arguments:\r\n  appname\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --autofield           Include Autofields (like pk fields)\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t\r\n                        provided, the DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.\r\n  --skip-checks         Skip system checks.'
+    posts_post_2.post_img = 'post/djnago_extensions_s05Mk5K.png'
+    posts_post_2.updated = dateutil.parser.parse("2024-05-04T23:13:14.882826+00:00")
+    posts_post_2 = importer.save_or_locate(posts_post_2)
+
+    posts_post_3 = Post()
+    posts_post_3.id = UUID('e9691ae2-d21a-49a4-a8fe-ade0cc0b2d47')
+    posts_post_3.title = 'Django Extensions - Export Emails'
+    posts_post_3.date = dateutil.parser.parse("2024-05-04T14:36:52.590403+00:00")
+    posts_post_3.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_3.snippet = 'Want to do a mass mailing to all your registered users, export_emails is for you.'
+    posts_post_3.body = 'Exports the email addresses of registered users in the format you specify. Supported formats are:\r\n  * address\r\n  * google\r\n  * outlook\r\n  * linkedin\r\n  * vcard\r\nYou can use the generated list for a mailer to all your users.\r\n\r\nusage: manage.py export_emails [-h] [--group GROUP] [--format FORMAT] [--version] [-v {0,1,2,3}]\r\n                               [--settings SETTINGS] [--pythonpath PYTHONPATH] [--traceback] [--no-color]\r\n                               [--force-color] [--skip-checks]\r\n\r\nExport user email address list in one of a number of formats.\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --group GROUP, -g GROUP\r\n                        Limit to users which are part of the supplied group name\r\n  --format FORMAT, -f FORMAT\r\n                        output format. May be one of address, emails, google, outlook, linkedin, vcard.\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t\r\n                        provided, the DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.\r\n  --skip-checks         Skip system checks.'
+    posts_post_3.post_img = 'post/djnago_extensions_WodHNZ8.png'
+    posts_post_3.updated = dateutil.parser.parse("2024-05-04T23:13:21.802805+00:00")
+    posts_post_3 = importer.save_or_locate(posts_post_3)
+
+    posts_post_4 = Post()
+    posts_post_4.id = UUID('8a52d6f7-e8bd-4093-9fc9-1f680dcb0972')
+    posts_post_4.title = 'Django Extensions - Generate Password'
+    posts_post_4.date = dateutil.parser.parse("2024-05-04T20:20:47.886541+00:00")
+    posts_post_4.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_4.snippet = 'Having problems coming up with a unique and random password, try generate_password to meet your needs.'
+    posts_post_4.body = 'Generates a new password that you can then use for a user password. Uses the default django password generator. You are able to specify the length of the password by adding the --length=XX switch.\r\n\r\nusage: manage.py generate_password [-h] [--length [LENGTH]] [--version] [-v {0,1,2,3}] [--settings SETTINGS]\r\n                                   [--pythonpath PYTHONPATH] [--traceback] [--no-color] [--force-color]\r\n\r\nGenerates a new password that can be used for a user password. This uses Django core\'s default password generator\r\n`BaseUserManager.make_random_password()`.\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --length [LENGTH]     Password length.\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t\r\n                        provided, the DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.'
+    posts_post_4.post_img = 'post/djnago_extensions_07lvrF7.png'
+    posts_post_4.updated = dateutil.parser.parse("2024-05-04T23:13:44.710299+00:00")
+    posts_post_4 = importer.save_or_locate(posts_post_4)
+
+    posts_post_5 = Post()
+    posts_post_5.id = UUID('6e427e47-f072-4fc5-9851-fb70a49c689c')
+    posts_post_5.title = 'Django Extensions - Graph Models'
+    posts_post_5.date = dateutil.parser.parse("2024-05-04T20:27:12.748739+00:00")
+    posts_post_5.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_5.snippet = 'Want to see your models in a graphical presentation with all the relationships between the tables, then graph_models is for you'
+    posts_post_5.body = 'Renders a graphical representation of your entire project or of a specific application. You need Graphviz installed on the OS, as well as pygraphviz for this to work. Use the GRAPH_MODELS option in settings.py to specify default options.\r\n\r\nMy command line looks like this:\r\npython manage.py graph_models posts accounts | dot -T png -o <models_image>.png\r\n\r\nusage: manage.py graph_models [-h] [--pygraphviz] [--pydot] [--dot] [--json] [--disable-fields]\r\n                              [--disable-abstract-fields] [--group-models] [--all-applications]\r\n                              [--output OUTPUTFILE] [--layout LAYOUT] [--theme THEME] [--verbose-names]\r\n                              [--language LANGUAGE] [--exclude-columns EXCLUDE_COLUMNS]\r\n                              [--exclude-models EXCLUDE_MODELS] [--include-models INCLUDE_MODELS] [--inheritance]\r\n                              [--no-inheritance] [--hide-relations-from-fields]\r\n                              [--relation-fields-only RELATION_FIELDS_ONLY] [--disable-sort-fields]\r\n                              [--hide-edge-labels]\r\n                              [--arrow-shape {box,crow,curve,icurve,diamond,dot,inv,none,normal,tee,vee}]\r\n                              [--color-code-deletions] [--rankdir {TB,BT,LR,RL}] [--version] [-v {0,1,2,3}]\r\n                              [--settings SETTINGS] [--pythonpath PYTHONPATH] [--traceback] [--no-color]\r\n                              [--force-color] [--skip-checks]\r\n                              [app_label ...]\r\n\r\nCreates a GraphViz dot file for the specified app names. You can pass multiple app names and they will all be\r\ncombined into a single model. Output is usually directed to a dot file.\r\n\r\npositional arguments:\r\n  app_label\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --pygraphviz          Output graph data as image using PyGraphViz.\r\n  --pydot               Output graph data as image using PyDot(Plus).\r\n  --dot                 Output graph data as raw DOT (graph description language) text data.\r\n  --json                Output graph data as JSON\r\n  --disable-fields, -d  Do not show the class member fields\r\n  --disable-abstract-fields\r\n                        Do not show the class member fields that were inherited\r\n  --group-models, -g    Group models together respective to their application\r\n  --all-applications, -a\r\n                        Automatically include all applications from INSTALLED_APPS\r\n  --output OUTPUTFILE, -o OUTPUTFILE\r\n                        Render output file. Type of output dependend on file extensions. Use png or jpg to render\r\n                        graph to image.\r\n  --layout LAYOUT, -l LAYOUT\r\n                        Layout to be used by GraphViz for visualization. Layouts: circo dot fdp neato nop nop1 nop2\r\n                        twopi\r\n  --theme THEME, -t THEME\r\n                        Theme to use. Supplied are \'original\' and \'django2018\'. You can create your own by creating\r\n                        dot templates in \'django_extentions/graph_models/themename/\' template directory.\r\n  --verbose-names, -n   Use verbose_name of models and fields\r\n  --language LANGUAGE, -L LANGUAGE\r\n                        Specify language used for verbose_name localization\r\n  --exclude-columns EXCLUDE_COLUMNS, -x EXCLUDE_COLUMNS\r\n                        Exclude specific column(s) from the graph. Can also load exclude list from file.\r\n  --exclude-models EXCLUDE_MODELS, -X EXCLUDE_MODELS\r\n                        Exclude specific model(s) from the graph. Can also load exclude list from file. Wildcards\r\n                        (*) are allowed.\r\n  --include-models INCLUDE_MODELS, -I INCLUDE_MODELS\r\n                        Restrict the graph to specified models. Wildcards (*) are allowed.\r\n  --inheritance, -e     Include inheritance arrows (default)\r\n  --no-inheritance, -E  Do not include inheritance arrows\r\n  --hide-relations-from-fields, -R\r\n                        Do not show relations as fields in the graph.\r\n  --relation-fields-only RELATION_FIELDS_ONLY\r\n                        Only display fields that are relevant for relations\r\n  --disable-sort-fields, -S\r\n                        Do not sort fields\r\n  --hide-edge-labels    Do not show relations labels in the graph.\r\n  --arrow-shape {box,crow,curve,icurve,diamond,dot,inv,none,normal,tee,vee}\r\n                        Arrow shape to use for relations. Default is dot. Available shapes: box, crow, curve,\r\n                        icurve, diamond, dot, inv, none, normal, tee, vee.\r\n  --color-code-deletions\r\n                        Color the relations according to their on_delete setting, where it it applicable. The colors\r\n                        are: red (CASCADE), orange (SET_NULL), green (SET_DEFAULT), yellow (SET), blue (PROTECT),\r\n                        grey (DO_NOTHING) and purple (RESTRICT).\r\n  --rankdir {TB,BT,LR,RL}\r\n                        Set direction of graph layout. Supported directions: "TB", "LR", "BT", "RL", corresponding\r\n                        to directed graphs drawn from top to bottom, from left to right, from bottom to top, and\r\n                        from right to left, respectively. Default is TB.\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t\r\n                        provided, the DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.\r\n  --skip-checks         Skip system checks.'
+    posts_post_5.post_img = 'post/dee_posts_accounts.png'
+    posts_post_5.updated = dateutil.parser.parse("2024-05-04T23:13:59.534845+00:00")
+    posts_post_5 = importer.save_or_locate(posts_post_5)
+
+    posts_post_6 = Post()
+    posts_post_6.id = UUID('87b6942c-bdd2-44ad-8dea-563b8c39dd75')
+    posts_post_6.title = 'Django Extensions - Reset DB'
+    posts_post_6.date = dateutil.parser.parse("2024-05-04T20:31:30.771103+00:00")
+    posts_post_6.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_6.snippet = 'This untility will drop your current database and create a new one for you so you can start fresh'
+    posts_post_6.body = 'Fully resets your current database by running a DROP DATABASE followed by a CREATE DATABASE. This is a destructive operation! You will be prompted to confirm the operation.\r\n\r\nusage: manage.py reset_db [-h] [--noinput] [--no-utf8] [-U USER] [-O OWNER] [-P PASSWORD] [-D DBNAME] [-R ROUTER]\r\n                          [--database DATABASE] [-c] [--version] [-v {0,1,2,3}] [--settings SETTINGS]\r\n                          [--pythonpath PYTHONPATH] [--traceback] [--no-color] [--force-color] [--skip-checks]\r\n\r\nResets the database for this project.\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --noinput, --no-input\r\n                        Tells Django to NOT prompt the user for input of any kind.\r\n  --no-utf8             Tells Django to not create a UTF-8 charset database\r\n  -U USER, --user USER  Use another user for the database than defined in settings.py\r\n  -O OWNER, --owner OWNER\r\n                        Use another owner for creating the database than the user defined in settings or via --user\r\n  -P PASSWORD, --password PASSWORD\r\n                        Use another password for the database than defined in settings.py\r\n  -D DBNAME, --dbname DBNAME\r\n                        Use another database name than defined in settings.py\r\n  -R ROUTER, --router ROUTER\r\n                        Use this router-database other than defined in settings.py\r\n  --database DATABASE   Nominates a database to run command for. Defaults to the "default" database.\r\n  -c, --close-sessions  Close database connections before dropping database (PostgreSQL only)\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t\r\n                        provided, the DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.\r\n  --skip-checks         Skip system checks.'
+    posts_post_6.post_img = 'post/djnago_extensions_2hM3XSv.png'
+    posts_post_6.updated = dateutil.parser.parse("2024-05-04T23:13:52.996769+00:00")
+    posts_post_6 = importer.save_or_locate(posts_post_6)
+
+    posts_post_7 = Post()
+    posts_post_7.id = UUID('c3bee6fd-7e02-4f2d-8492-3b0343176257')
+    posts_post_7.title = 'Django Extensions - Runserver Plus'
+    posts_post_7.date = dateutil.parser.parse("2024-05-04T20:34:41.523378+00:00")
+    posts_post_7.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_7.snippet = 'If you are in a development cycle and you need to test your project using https (TLS), then runserver_plus will provide you that functionality, all you need to do is provide a certificate and key file'
+    posts_post_7.body = 'This is the typical runserver command with the Werkzeug debugger baked in. Requires the Werkzeug package to be installed (Kick ass debugger). Allows you to run your development server over https by specifying the --cert-file option.\r\n\r\nusage: manage.py runserver_plus [-h] [--ipv6] [--noreload] [--browser] [--nothreading] [--threaded]\r\n                                [--output OUTPUT_FILE] [--print-sql] [--truncate-sql TRUNCATE_SQL]\r\n                                [--print-sql-location] [--cert CERT_PATH | --cert-file CERT_PATH]\r\n                                [--key-file KEY_FILE_PATH] [--extra-file EXTRA_FILES]\r\n                                [--exclude-pattern EXCLUDE_PATTERNS] [--reloader-interval RELOADER_INTERVAL]\r\n                                [--reloader-type RELOADER_TYPE] [--pdb] [--ipdb] [--pm]\r\n                                [--startup-messages STARTUP_MESSAGES] [--keep-meta-shutdown] [--nopin] [--nostatic]\r\n                                [--insecure] [--version] [-v {0,1,2,3}] [--settings SETTINGS]\r\n                                [--pythonpath PYTHONPATH] [--traceback] [--no-color] [--force-color]\r\n                                [addrport]\r\n\r\nStarts a lightweight Web server for development.\r\n\r\npositional arguments:\r\n  addrport              Optional port number, or ipaddr:port\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --ipv6, -6            Tells Django to use a IPv6 address.\r\n  --noreload            Tells Django to NOT use the auto-reloader.\r\n  --browser             Tells Django to open a browser.\r\n  --nothreading         Do not run in multithreaded mode.\r\n  --threaded            Run in multithreaded mode.\r\n  --output OUTPUT_FILE  Specifies an output file to send a copy of all messages (not flushed immediately).\r\n  --print-sql           Print SQL queries as they\'re executed\r\n  --truncate-sql TRUNCATE_SQL\r\n                        Truncate SQL queries to a number of characters.\r\n  --print-sql-location  Show location in code where SQL query generated from\r\n  --cert CERT_PATH      Deprecated alias for --cert-file option.\r\n  --cert-file CERT_PATH\r\n                        SSL .crt file path. If not provided path from --key-file will be selected. Either --cert-\r\n                        file or --key-file must be provided to use SSL.\r\n  --key-file KEY_FILE_PATH\r\n                        SSL .key file path. If not provided path from --cert-file will be selected. Either --cert-\r\n                        file or --key-file must be provided to use SSL.\r\n  --extra-file EXTRA_FILES\r\n                        auto-reload whenever the given file changes too (can be specified multiple times)\r\n  --exclude-pattern EXCLUDE_PATTERNS\r\n                        ignore reload on changes to files matching this pattern (can be specified multiple times)\r\n  --reloader-interval RELOADER_INTERVAL\r\n                        After how many seconds auto-reload should scan for updates in poller-mode [default=1]\r\n  --reloader-type RELOADER_TYPE\r\n                        Werkzeug reloader type [options are auto, watchdog, or stat, default=auto]\r\n  --pdb                 Drop into pdb shell at the start of any view.\r\n  --ipdb                Drop into ipdb shell at the start of any view.\r\n  --pm                  Drop into (i)pdb shell if an exception is raised in a view.\r\n  --startup-messages STARTUP_MESSAGES\r\n                        When to show startup messages: reload [default], once, always, never.\r\n  --keep-meta-shutdown  Keep request.META[\'werkzeug.server.shutdown\'] function which is automatically removed\r\n                        because Django debug pages tries to call the function and unintentionally shuts down the\r\n                        Werkzeug server.\r\n  --nopin               Disable the PIN in werkzeug. USE IT WISELY!\r\n  --nostatic            Tells Django to NOT automatically serve static files at STATIC_URL.\r\n  --insecure            Allows serving static files even if DEBUG is False.\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t\r\n                        provided, the DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.'
+    posts_post_7.post_img = 'post/djnago_extensions_ySq9rWN.png'
+    posts_post_7.updated = dateutil.parser.parse("2024-05-04T23:13:36.539351+00:00")
+    posts_post_7 = importer.save_or_locate(posts_post_7)
+
+    posts_post_8 = Post()
+    posts_post_8.id = UUID('d200ae6a-e8f3-47dd-97f5-be453f75475c')
+    posts_post_8.title = 'Django Extensions - Generate Secret Key'
+    posts_post_8.date = dateutil.parser.parse("2024-05-04T20:39:07.550181+00:00")
+    posts_post_8.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 4, {'id': 4, 'password': 'pbkdf2_sha256$720000$NMknnwIRNuS9niwv7Py728$60WBQWeT1bvc6VZw332Ut0NytuKzmOv82q5nEtX8pwA=', 'last_login': dateutil.parser.parse("2024-04-27T15:13:22.954511+00:00"), 'is_superuser': False, 'username': 'david', 'first_name': '', 'last_name': '', 'email': 'david@example.com', 'is_staff': False, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:13:19.573965+00:00")} ) 
+    posts_post_8.snippet = 'It is recommended that you replace the secret key that is generated with each new project. There are generators online, but if django_extensions are installed you have access to a great generator.'
+    posts_post_8.body = 'Creates a new secret key that you can put in your settings.py module, or more appropriately place it in a dot env file.\r\n\r\nusage: manage.py generate_secret_key [-h] [--version] [-v {0,1,2,3}] [--settings SETTINGS] [--pythonpath PYTHONPATH]\r\n                                     [--traceback] [--no-color] [--force-color]\r\n\r\nGenerates a new SECRET_KEY that can be used in a project settings file.\r\n\r\noptions:\r\n  -h, --help            show this help message and exit\r\n  --version             Show program\'s version number and exit.\r\n  -v {0,1,2,3}, --verbosity {0,1,2,3}\r\n                        Verbosity level; 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output\r\n  --settings SETTINGS   The Python path to a settings module, e.g. "myproject.settings.main". If this isn\'t\r\n                        provided, the DJANGO_SETTINGS_MODULE environment variable will be used.\r\n  --pythonpath PYTHONPATH\r\n                        A directory to add to the Python path, e.g. "/home/djangoprojects/myproject".\r\n  --traceback           Raise on CommandError exceptions.\r\n  --no-color            Don\'t colorize the command output.\r\n  --force-color         Force colorization of the command output.'
+    posts_post_8.post_img = 'post/djnago_extensions_91WsZGn.png'
+    posts_post_8.updated = dateutil.parser.parse("2024-05-04T23:13:29.599834+00:00")
+    posts_post_8 = importer.save_or_locate(posts_post_8)
+
+    # Processing model: posts.models.Review
+
+    from posts.models import Review
+
+    posts_review_1 = Review()
+    posts_review_1.post = posts_post_1
+    posts_review_1.review = 'Shell_plus is a lifesaver, I no longer need to remember to import all my models. This saves time in setting up the shell and performing the queries that I need to run, and I can close the shell knowing that the next time I launch it I can do the same tasks without remembering what I did the first time.\r\n\r\nThis is a real timesaver.'
+    posts_review_1.rating = 0
+    posts_review_1.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_1.date = dateutil.parser.parse("2024-05-04T22:51:02.977221+00:00")
+    posts_review_1 = importer.save_or_locate(posts_review_1)
+
+    posts_review_2 = Review()
+    posts_review_2.post = posts_post_2
+    posts_review_2.review = 'This tool has saved my a*? from data loss. If you use only one tool from django_extensions this is the one to learn and keep close.'
+    posts_review_2.rating = 0
+    posts_review_2.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_2.date = dateutil.parser.parse("2024-05-04T22:57:13.484529+00:00")
+    posts_review_2 = importer.save_or_locate(posts_review_2)
+
+    posts_review_3 = Review()
+    posts_review_3.post = posts_post_3
+    posts_review_3.review = 'Maintaining a current mass mailing list can be difficult. This extension makes it wasy to get a current list of users from your project and create your mailer so you reach 100% of your users. The only thing you need to do is make sure your users have a method of opting out of mass mailings if desired.'
+    posts_review_3.rating = 0
+    posts_review_3.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_3.date = dateutil.parser.parse("2024-05-04T22:59:28.361110+00:00")
+    posts_review_3 = importer.save_or_locate(posts_review_3)
+
+    posts_review_4 = Review()
+    posts_review_4.post = posts_post_4
+    posts_review_4.review = "Don't know how many times I've sat at the keyboard scratching my head to come up with a unique password. This extension takes all the guess work out of picking a new password, and it won't cost you anything."
+    posts_review_4.rating = 0
+    posts_review_4.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_4.date = dateutil.parser.parse("2024-05-04T23:01:16.529588+00:00")
+    posts_review_4 = importer.save_or_locate(posts_review_4)
+
+    posts_review_5 = Review()
+    posts_review_5.post = posts_post_5
+    posts_review_5.review = 'Keeping the relationships between all the models in a project can be daunting and time consuming. graph_models takes the guess work out of the process by being able to generate a jpg or png layout of the models you specify on the commandline. The results are a great way of explaining to management how the application will work as well.'
+    posts_review_5.rating = 0
+    posts_review_5.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_5.date = dateutil.parser.parse("2024-05-04T23:03:45.441542+00:00")
+    posts_review_5 = importer.save_or_locate(posts_review_5)
+
+    posts_review_6 = Review()
+    posts_review_6.post = posts_post_6
+    posts_review_6.review = 'Need to modify one of your models and you know that it will affect the database negatively? Use reset_db to drop the current database and create a new one. But remember to use this extension in conjuction with dumpscript so you save all your current data.'
+    posts_review_6.rating = 0
+    posts_review_6.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_6.date = dateutil.parser.parse("2024-05-04T23:05:34.219622+00:00")
+    posts_review_6 = importer.save_or_locate(posts_review_6)
+
+    posts_review_7 = Review()
+    posts_review_7.post = posts_post_7
+    posts_review_7.review = "Since most development is done on a non-routable address, i.e the local loopback address it is hard to use a service such as Let's Encrypt. However, it may be necessary to test the behavior of the project when using https. The runsserver_plus extension allows you to do that. All you have to do is generate a self-signed certificate and key, and you're all set."
+    posts_review_7.rating = 0
+    posts_review_7.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_7.date = dateutil.parser.parse("2024-05-04T23:08:43.762073+00:00")
+    posts_review_7 = importer.save_or_locate(posts_review_7)
+
+    posts_review_8 = Review()
+    posts_review_8.post = posts_post_8
+    posts_review_8.review = 'The secret key generated by a new project explicitly says "django_insecure". This is done to remind you that you need to replace the secret key with one that meets the requirements of django. The extension generate-secret_key is the tool to use to replace the insecure key with a key you can trust. Remember to protect your secret key using a .env file.'
+    posts_review_8.rating = 0
+    posts_review_8.author =  importer.locate_object(CustomUser, "id", CustomUser, "id", 1, {'id': 1, 'password': 'pbkdf2_sha256$720000$xez7SSKfMEdgxfcaAtIaek$74zP/GQubsL20k7neQ00oSOdJeC9LbjZlbjLKFIiQtk=', 'last_login': dateutil.parser.parse("2024-05-04T13:22:39.408430+00:00"), 'is_superuser': True, 'username': 'admin', 'first_name': '', 'last_name': '', 'email': 'admin@example.com', 'is_staff': True, 'is_active': True, 'date_joined': dateutil.parser.parse("2024-04-27T15:06:55.796658+00:00")} ) 
+    posts_review_8.date = dateutil.parser.parse("2024-05-04T23:12:03.256697+00:00")
+    posts_review_8 = importer.save_or_locate(posts_review_8)
+
