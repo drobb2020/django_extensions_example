@@ -10,9 +10,6 @@ class PostAdmin(admin.ModelAdmin):
         'title',
         'date',
         'author',
-        'snippet',
-        'body',
-        'post_img',
         'updated',
     )
     list_filter = ('date', 'author', 'updated')
@@ -20,5 +17,5 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('id', 'post', 'review', 'rating', 'author')
+    list_display = ('post', 'author')
     list_filter = ('post', 'author')

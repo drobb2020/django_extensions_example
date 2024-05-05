@@ -4,8 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .forms import PostCreateForm, PostUpdateForm
-from .models import Post
+from .forms import PostCreateForm, PostUpdateForm, ReviewCreateForm
+from .models import Post, Review
 
 
 class PostsListView(ListView):
@@ -34,6 +34,13 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
+    success_url = reverse_lazy("post_list")
+
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = Review
+    form_class = ReviewCreateForm
+    template_name = "posts/review_create.html"
     success_url = reverse_lazy("post_list")
 
 

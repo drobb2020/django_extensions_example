@@ -13,14 +13,15 @@
     <a href="{% url 'post_update' post.pk %}" class="btn btn-primary">Edit this Post</a>
     <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete this post</a>
   </div>
-    <img src="{{ post.post_img.url }}" class="card-img-top rounded shadow-lg" alt="{{ post.title }}">
+  <p class="lead">{{ post.snippet }}</p>
+  <img src="{{ post.post_img.url }}" class="card-img-top rounded shadow-lg" alt="{{ post.title }}">
   <p>{{ post.body|linebreaks }}</p>
 
   <div>
     <h3>Reviews</h3>
     <ul class="list-unstyled">
       {% for review in post.reviews.all %}
-      <li>{{ review.review }} <br /> {{ review.rating }} stars out of 5. <br /> <strong>{{ review.author|title }}</strong></li>
+      <li>{{ review.review }} <br /><strong>{{ review.author|title }}</strong> <br />{{ review.date }}<hr /></li>
       {% endfor %}
     </ul>
   </div>

@@ -32,7 +32,7 @@
     <img src="./static/images/logo.png" alt="Logo" width="100" height="100">
   </a>
 
-  <h3 align="center">Django Extensions Examples - Using Django-Extensions</h3>
+  <h3 align="center">Django Extensions Examples - Using django-extensions</h3>
 
   <p align="center">
     This project is intended to explore django-extensions and learn more about what django extensions can do for me during development.
@@ -70,14 +70,16 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <!-- <li><a href="#acknowledgements">Acknowledgements</a></li> -->
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project was setup to explore django-extensions and learn more about how django-extensions can help me during development.
+[![django_extensions Example][product-screenshot]](https://github.com/drobb2020/django_extensions_example)
+
+This project was setup to explore django-extensions and learn more about how django-extensions can help me during development. It is also based on William Vincent's book "Django for Professionals". Specially for setting up django-allauth. This is also a functional blog site using class-based views. There are still a few portions of the code that need work, but it is functional. I have included the database on Github since I created 8 posts that highlight the django_extension modules that I use the most.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -86,14 +88,19 @@ This project was setup to explore django-extensions and learn more about how dja
 * [Django 5.0.4](https://www.djangoproject.com/)
 * [Django Extensions 3.2.3](https://django-extensions.readthedocs.io/en/latest/)
 * [Graphviz 10.0.1](https://graphviz.org/)
-* See requirements.txt for a full list
+* [Bootswatch Theme for Bootstrap](https://bootswatch.com/)
+* See requirements.txt for a full list of modules used
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+To get a local copy up and running follow these steps.
+
+1. You can clone this repo, and begin playing, or
+
+2. You can follow the [Project Setup Guide](PROJECT_SETUP.md) to create the project from scratch.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -135,12 +142,9 @@ You will require graphviz to be installed on your OS before you can use graphviz
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Django extensions is a very useful tool to enhance your experience with django development. From shell_plus, to runserver_plus there are a host of utilities for everyone. I created a simple blog application and created a couple of models to experiment with the command extensions.
-Here is the results from running the graph_models command:
+![django_extensions Example][blog-screenshot]
 
-<a href="https://github.com/drobb2020/django-example">
-<img src="images/blog.png" alt="Logo" height="300">
-  </a>
+Django extensions is a very useful tool to enhance your experience with django development. From shell_plus, to runserver_plus there are a host of utilities for everyone. I created a simple blog application and created a couple of models to experiment with the command extensions.
 
 ## My favorite django-extensions are
 
@@ -153,6 +157,8 @@ Here is the results from running the graph_models command:
 * runserver_plus
 * generate_secret_key
 * admin_generator
+
+Refer to the [Django Extensions markdown file](DJANGO_EXTENSIONS.md) for a full listing of all modules.
 
 _For more examples, please refer to the [Documentation](https://django-extensions.readthedocs.io/en/latest/command_extensions.html)_
 
@@ -191,6 +197,8 @@ _For more examples, please refer to the [Documentation](https://django-extension
 
 ### Graph models
 
+[![django_extensions Example][graph-screenshot]](https://github.com/drobb2020/django_extensions_example)
+
 * Renders a graphical representation of your entire project or of a specific application.
 * You need Graphviz installed on the OS, as well as pygraphviz for this to work.
 * Use the GRAPH_MODELS option in settings.py to specify default options.
@@ -219,7 +227,8 @@ _For more examples, please refer to the [Documentation](https://django-extension
 * [X] Document the django-extensions I played with
 * [X] Add full CRUD functionality to demonstration
 * [ ] Add HTMX to project
-* [ ] Add a CustomUser app to the project and setup login, logout, and register pages.
+* [X] Add a CustomUser app to the project and setup login, logout, and register pages.
+* [X] Update the code to the latest available
 
 See the [open issues](https://github.com/drobb2020/django_extensions_example/issues) for a list of proposed features (and known issues).
 
@@ -275,3 +284,6 @@ Project Link: [https://github.com/drobb2020/django_extensions_example](https://g
 [license-url]: https://github.com/drobb2020/django_extensions_example/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/david-robb-42436a20/
+[product-screenshot]: ./static/images/screenshot.png
+[blog-screenshot]: ./static/images/blog.png
+[graph-screenshot]: ./static/images/dee_posts_accounts.png
